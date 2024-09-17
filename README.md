@@ -1,5 +1,5 @@
 # python-code-runner
-A simple web server for running python code snippets. Originally meant as a way to run python code snippets in Slidev presentations, but can be used in other applications as well.
+A simple web server for running Python code snippets in the browser. Originally meant as a way to run python code snippets in Slidev presentations, but can be used in other web-based applications as well.
 
 ## Features
 - Run python code snippets in the browser. 
@@ -11,7 +11,7 @@ A simple web server for running python code snippets. Originally meant as a way 
 2. Install the dependencies using `pip install -r requirements.txt`.
 3. Run the server using `python app.py`. This will start the server on `localhost:3480`.
 
-### via Slidev
+### Usage via Slidev
 To use the code runner in Slidev, add the following code snippet to your `setup/code-runners.ts` file:
 ```ts
 import { defineCodeRunnersSetup, CodeRunnerContext, CodeRunnerOutput } from '@slidev/types'
@@ -61,6 +61,7 @@ export default defineCodeRunnersSetup(() => {
   }
 })
 ```
+Learn more about Slidev code runners [here](https://sli.dev/custom/config-code-runners).
 
 ## API
 The server has a single endpoint `/run` which accepts a POST request with the following JSON payload:
@@ -79,6 +80,15 @@ The `code` field is the python code snippet to be executed. The `options` field 
 There are no security measures in place, so be careful when deploying this server in a sensitive environment. The server will execute any Python code provided in the request, so make sure to submit trusted code only.
 
 As for the HTML and JavaScript code returned in the `/run` response, the script tag is created as a custom HTML element (`python-runner-script`) as a way to bypass browser security restrictions. This is by design in order to run the code in use cases such as Slidev code runners. The code also contains instructions that generates and injects the HTML of the runner output where the script tag is located.
+
+## Limitations
+- It only supports single-file Python code snippets.
+- It does not support external libraries or dependencies.
+- It *may* not support long-running code snippets.
+- It does not support terminal-specific texts like ANSI escape codes. (for now)
+
+## Contributing
+As this is only created for my own purpose, contributions are welcome! Feel free to open an issue or submit a pull request.
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
